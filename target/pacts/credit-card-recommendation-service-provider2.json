@@ -1,0 +1,61 @@
+{
+    "provider": {
+        "name": "provider2"
+    },
+    "consumer": {
+        "name": "credit-card-recommendation-service"
+    },
+    "interactions": [
+        {
+            "description": "retrieve card recommendations from Provider2",
+            "request": {
+                "method": "POST",
+                "path": "/v2/creditcards",
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "first-name": "Robert C.",
+                    "last-name": "Martin",
+                    "date-of-birth": "1952/10/04",
+                    "score": 341,
+                    "employment-status": "PART_TIME",
+                    "salary": 18500
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": [
+                    {
+                        "card": "Provider2 Builder",
+                        "apply-url": "http://www.example.com/apply",
+                        "annual-percentage-rate": 19.4,
+                        "approval-rating": 0.8,
+                        "attributes": [
+                            "Supports ApplePay"
+                        ],
+                        "introductory-offers": [
+                            "Interest free purchases for 1 month"
+                        ]
+                    }
+                ]
+            },
+            "providerStates": [
+                {
+                    "name": "Find card recommendations"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.5"
+        }
+    }
+}

@@ -1,0 +1,61 @@
+{
+    "provider": {
+        "name": "provider1"
+    },
+    "consumer": {
+        "name": "credit-card-recommendation-service"
+    },
+    "interactions": [
+        {
+            "description": "retrieve card recommendations from Provider1",
+            "request": {
+                "method": "POST",
+                "path": "/v1/cards",
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "fullName": "Robert C. Martin",
+                    "dateOfBirth": "1952/10/04",
+                    "creditScore": 341
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": [
+                    {
+                        "cardName": "SuperSaver Card",
+                        "url": "http://www.example.com/apply",
+                        "apr": 21.4,
+                        "eligibility": 6.3
+                    },
+                    {
+                        "cardName": "SuperSpender Card",
+                        "url": "http://www.example.com/apply",
+                        "apr": 19.2,
+                        "eligibility": 5.0,
+                        "features": [
+                            "Interest free purchases for 6 months"
+                        ]
+                    }
+                ]
+            },
+            "providerStates": [
+                {
+                    "name": "Find credit cards user is eligible for"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.5"
+        }
+    }
+}

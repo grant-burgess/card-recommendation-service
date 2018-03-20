@@ -1,0 +1,70 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.0.RELEASE'
+        gradleDockerVersion = '1.2'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("se.transmode.gradle:gradle-docker:${gradleDockerVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'docker'
+
+group = 'com.grantburgess'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+ext {
+    springCloudVersion = 'Finchley.M7'
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+    compile('org.projectlombok:lombok:1.16.20')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('au.com.dius:pact-jvm-consumer-junit_2.12:3.5.5'){
+        // spring-cloud-starter-netflix-hystrix 2.0.0.M7 seems to use an older version, 18.0, of google guava
+        // so we exclude it and import the version used with pact below
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+    testCompile('com.google.guava:guava:22.0')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+// enables overrides using '-D'
+// e.g. ./gradlew bootRun -Dspring.profiles.active=prod
+bootRun {
+    systemProperties = System.properties
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = false
+    applicationName = 'card-recommendation-service'
+    dockerfile = file('docker/Dockerfile')
+    doFirst {
+        copy {
+            from 'build/libs'
+            into stageDir
+        }
+    }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "card": "Provider2 Builder",
+    "apply-url": "http://www.example.com/apply",
+    "annual-percentage-rate": 19.4,
+    "approval-rating": 0.8,
+    "attributes": [
+      "Supports ApplePay"
+    ],
+    "introductory-offers": [
+      "Interest free purchases for 1 month"
+    ]
+  }
+]

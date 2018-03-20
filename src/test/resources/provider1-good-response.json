@@ -1,0 +1,17 @@
+[
+  {
+    "cardName": "SuperSaver Card",
+    "url": "http://www.example.com/apply",
+    "apr": 21.4,
+    "eligibility": 6.3
+  },
+  {
+    "cardName": "SuperSpender Card",
+    "url": "http://www.example.com/apply",
+    "apr": 19.2,
+    "eligibility": 5.0,
+    "features": [
+      "Interest free purchases for 6 months"
+    ]
+  }
+]
